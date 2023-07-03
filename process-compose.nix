@@ -31,7 +31,7 @@ in
         enable = true;
         name = "${srvname}-db";
         listen_addresses = "127.0.0.1";
-        pgHbaConf = [
+        hbaConf = [
           # Equivalent to `POSTGRES_INITDB_ARGS = "--auth=scram-sha-256";`, sets the auth for all users
           # connecting through unix sockets.
           { type = "local"; database = "all"; user = "all"; address = ""; method = "scram-sha-256"; }
