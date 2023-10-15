@@ -3,7 +3,7 @@ let
   srvname = "passetto";
   dbName = "passetto";
   userName = "passetto";
-  pgcfg = config.services.postgres;
+  pgcfg = config.services.postgres."${srvname}-db";
 in
 {
   options = {
@@ -27,9 +27,8 @@ in
       cfg = config.services.passetto;
     in
     lib.mkIf cfg.enable {
-      services.postgres = {
+      services.postgres."${srvname}-db" = {
         enable = true;
-        name = "${srvname}-db";
         listen_addresses = "127.0.0.1";
         hbaConf = [
           # Equivalent to `POSTGRES_INITDB_ARGS = "--auth=scram-sha-256";`, sets the auth for all users
@@ -40,7 +39,7 @@ in
           { type = "host"; database = "all"; user = "all"; address = "127.0.0.1/32"; method = "scram-sha-256"; }
           { type = "host"; database = "all"; user = "all"; address = "::1/128"; method = "scram-sha-256"; }
         ];
-        initialScript = ''
+        initialScript.before = ''
           CREATE ROLE ${userName} SUPERUSER;
           ALTER ROLE ${userName} WITH LOGIN;
         '';
