@@ -5,7 +5,7 @@
     haskell-flake.url = "github:srid/haskell-flake";
 
     process-compose-flake.url = "github:Platonic-Systems/process-compose-flake";
-    services-flake.url = "github:juspay/services-flake/postgres/pgHba";
+    services-flake.url = "github:juspay/services-flake";
   };
   outputs = inputs@{ nixpkgs, flake-parts, ... }:
     flake-parts.lib.mkFlake { inherit inputs; } ({ self, ... }: {
