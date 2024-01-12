@@ -38,7 +38,6 @@ in
     lib.mkIf cfg.enable {
       services.postgres."${srvname}-db" = {
         enable = true;
-        port = 5422;
         listen_addresses = "127.0.0.1";
         hbaConf = [
           # Equivalent to `POSTGRES_INITDB_ARGS = "--auth=scram-sha-256";`, sets the auth for all users
