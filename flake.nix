@@ -6,6 +6,10 @@
 
     process-compose-flake.url = "github:Platonic-Systems/process-compose-flake";
     services-flake.url = "github:juspay/services-flake";
+
+    # FIXME: Use upstream cryptostore after resolution is present in https://github.com/srid/haskell-flake/discussions/342
+    cryptostore.url = "github:shivaraj-bh/cryptostore/use_crypton";
+    cryptostore.flake = false;
   };
   outputs = inputs@{ nixpkgs, flake-parts, ... }:
     flake-parts.lib.mkFlake { inherit inputs; } ({ self, ... }: {
@@ -17,7 +21,11 @@
       ];
 
       perSystem = { config, self', pkgs, system, lib, ... }: {
-        haskellProjects.default = { };
+        haskellProjects.default = {
+          packages = {
+            cryptostore.source = inputs.cryptostore;
+          };
+        };
 
         overlayAttrs = {
           passetto-service = lib.getBin self'.packages.passetto-service;
