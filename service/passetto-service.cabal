@@ -52,7 +52,7 @@ library
     , base >=4.7 && <5
     , binary
     , bytestring
-    , cryptonite
+    , crypton
     , cryptostore
     , exceptions
     , haskeline
@@ -71,7 +71,7 @@ library
     , wai
     , warp
     , warp-tls
-    , x509
+    , crypton-x509
   if flag(pg-backend)
     build-depends:
         postgresql-simple
